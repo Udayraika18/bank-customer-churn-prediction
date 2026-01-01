@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Churn Prediction</title>
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+
+<body>
+
+<!-- Navbar Starts -->
+<section id="nav-bar">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand font-weight-bold" href="#" style="color: yellow;">BANK</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active"><a class="nav-link" href="#">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Net Banking</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Predictions</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+</section>
+<!-- Navbar Ends -->
+
+<form action="{{ url_for('predict') }}" method="post">
+    <h1>Enter the Information Below and find if a Customer will Churn out or not</h1>
+
+    <div class="contentform">
+
+        <div class="leftcontact">
+
+            <div class="form-group">
+                <p>Credit Score<span>*</span></p>
+                <span class="icon-case"></span>
+                <input type="number" name="CreditScore" required>
+            </div>
+
+            <div class="form-group">
+                <p>Age <span>*</span></p>
+                <span class="icon-case"></span>
+                <input type="number" name="Age" required>
+            </div>
+
+            <div class="form-group">
+                <p>Tenure <span>*</span></p>
+                <span class="icon-case"></span>
+                <input type="number" name="Tenure" required>
+            </div>
+
+            <div class="form-group">
+                <p>Enter the Account Balance <span>*</span></p>
+                <span class="icon-case"></span>
+                <input type="number" step="any" name="Balance" required>
+            </div>
+
+            <div class="form-group">
+                <p>Number of Products <span>*</span></p>
+                <span class="icon-case"></span>
+                <input type="number" name="NumOfProducts" required>
+            </div>
+
+            <div class="form-group">
+                <p>Do the Customer have Credit Card? (1=Yes, 0=No) <span>*</span></p>
+                <span class="icon-case"></span>
+                <input type="number" name="HasCrCard" min="0" max="1" required>
+            </div>
+
+        </div>
+
+        <div class="rightcontact">
+
+            <div class="form-group">
+                <p>Is the Customer Active Member (1=Yes, 0=No) <span>*</span></p>
+                <span class="icon-case"></span>
+                <input type="number" name="IsActiveMember" min="0" max="1" required>
+            </div>
+
+            <div class="form-group">
+                <p>Enter the Estimated Salary <span>*</span></p>
+                <span class="icon-case"></span>
+                <input type="number" step="any" name="EstimatedSalary" required>
+            </div>
+
+            <div class="form-group">
+                <p>Enter The Location <span>*</span></p>
+                <span class="icon-case"></span>
+                <select name="Geography_Germany" required>
+                    <option value="Germany">Germany</option>
+                    <option value="Spain">Spain</option>
+                    <option value="France">France</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <p>Gender of Customer <span>*</span></p>
+                <span class="icon-case"></span>
+                <select name="Gender_Male" required>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+            </div>
+
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-lg btn-info mb-5 ml-5"
+        style="box-shadow: 0 4px 15px 0 rgba(49, 196, 190, 0.75);
+        background-image: linear-gradient(to right, #25aae1, #4481eb, #04befe, #3f86ed);">
+        Predict whether the Customer will leave the bank or not?
+    </button>
+
+</form>
+
+{% if prediction_text %}
+    <h3 class="alert alert-primary text-center">
+        {{ prediction_text }}
+    </h3>
+{% endif %}
+
+
+<!-- FOOTER -->
+<div class="unique-color-dark mt-4 white-text"
+    style="background-color: #1c2331 !important;">
+    <div class="container py-3 text-center">
+        <a href="https://github.com/Udayraika18"><i class="fa fa-github fa-2x mx-3"></i></a>
+        <a href="https://www.linkedin.com/in/uday-raika-7090a429b/"><i class="fa fa-linkedin fa-2x mx-3"></i></a>
+    </div>
+</div>
+
+<!-- CSS -->
+<style>
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: sans-serif;
+    background-image: url(https://images.unsplash.com/photo-1462206092226-f46025ffe607);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#nav-bar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.navbar {
+    background: rgb(0, 81, 255) !important;
+}
+
+.navbar-nav li a {
+    color: #fff !important;
+    font-weight: 600;
+}
+
+form {
+    max-width: 700px;
+    margin: 5% auto;
+    background-color: #FFFFFF;
+    border-radius: 5px;
+}
+
+form h1 {
+    background: blue;
+    color: white;
+    padding: 20px;
+    font-size: 18px;
+}
+
+.contentform {
+    padding: 40px 30px;
+}
+
+.leftcontact, .rightcontact {
+    width: 49%;
+    float: left;
+}
+
+.rightcontact {
+    float: right;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+input, select {
+    width: 75%;
+    height: 40px;
+    padding: 0 10px;
+}
+
+.icon-case {
+    width: 35px;
+    height: 40px;
+    background: #eeeeee;
+    float: left;
+}
+</style>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+</body>
+</html>
