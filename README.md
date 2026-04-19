@@ -15,6 +15,8 @@ using machine learning and a Flask web application.
 - scikit-learn
 - HTML, CSS, Bootstrap
 
+Live link:-
+https://bank-customer-churn-prediction-dgvg.onrender.com/
 ## 🔹 How to Run Locally
 
 1. Clone the repository:
